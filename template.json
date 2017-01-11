@@ -140,6 +140,29 @@
                                 }
                             }
                         ]
+                    },
+                    "extensionProfile": {
+                        "extensions": [
+                            {
+                                "name": "CustomInstallScript",
+                                "properties": {
+                                    "type": "CustomScriptExtension",
+                                    "publisher": "Microsoft.Compute",
+                                    "typeHandlerVersion": "1.7",
+                                    "autoUpgradeMinorVersion": true, 
+                                    "settings": { 
+                                        "fileUris": [ 
+                                            "https://scriptstash.blob.core.windows.net/scripts/Script.ps1" 
+                                        ]
+                                    },
+                                    "protectedSettings": {
+                                        "commandToExecute": "[concat('powershell -ExecutionPolicy bypass -File Script.ps1 -user ScaleSetUser -password ',parameters('virtualMachineScaleSets_scalesetsample_adminPassword'))]",                                         
+                                        "storageAccountName": "scriptstash",
+                                        "storageAccountKey": ""
+                                    }
+                                }
+                            }
+                        ]
                     }
                 }
             },
