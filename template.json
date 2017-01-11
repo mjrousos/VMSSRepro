@@ -174,52 +174,52 @@
                 ],
                 "loadBalancingRules": [],
                 "probes": [],
-                "inboundNatRules": [
-                    {
-                        "name": "scalesetsnatpool.0",
-                        "properties": {
-                            "frontendIPConfiguration": {
-                                "id": "[parameters('loadBalancers_scalesetslb_id')]"
-                            },
-                            "frontendPort": 50000,
-                            "backendPort": 3389,
-                            "protocol": "Tcp"
-                        }
-                    },
-                    {
-                        "name": "scalesetsnatpool.1",
-                        "properties": {
-                            "frontendIPConfiguration": {
-                                "id": "[parameters('loadBalancers_scalesetslb_id_1')]"
-                            },
-                            "frontendPort": 50001,
-                            "backendPort": 3389,
-                            "protocol": "Tcp"
-                        }
-                    },
-                    {
-                        "name": "scalesetsnatpool.2",
-                        "properties": {
-                            "frontendIPConfiguration": {
-                                "id": "[parameters('loadBalancers_scalesetslb_id_2')]"
-                            },
-                            "frontendPort": 50002,
-                            "backendPort": 3389,
-                            "protocol": "Tcp"
-                        }
-                    },
-                    {
-                        "name": "scalesetsnatpool.3",
-                        "properties": {
-                            "frontendIPConfiguration": {
-                                "id": "[parameters('loadBalancers_scalesetslb_id_3')]"
-                            },
-                            "frontendPort": 50003,
-                            "backendPort": 3389,
-                            "protocol": "Tcp"
-                        }
-                    }
-                ],
+                // "inboundNatRules": [
+                //     {
+                //         "name": "scalesetsnatpool.0",
+                //         "properties": {
+                //             "frontendIPConfiguration": {
+                //                 "id": "[parameters('loadBalancers_scalesetslb_id')]"
+                //             },
+                //             "frontendPort": 50000,
+                //             "backendPort": 3389,
+                //             "protocol": "Tcp"
+                //         }
+                //     },
+                //     {
+                //         "name": "scalesetsnatpool.1",
+                //         "properties": {
+                //             "frontendIPConfiguration": {
+                //                 "id": "[parameters('loadBalancers_scalesetslb_id_1')]"
+                //             },
+                //             "frontendPort": 50001,
+                //             "backendPort": 3389,
+                //             "protocol": "Tcp"
+                //         }
+                //     },
+                //     {
+                //         "name": "scalesetsnatpool.2",
+                //         "properties": {
+                //             "frontendIPConfiguration": {
+                //                 "id": "[parameters('loadBalancers_scalesetslb_id_2')]"
+                //             },
+                //             "frontendPort": 50002,
+                //             "backendPort": 3389,
+                //             "protocol": "Tcp"
+                //         }
+                //     },
+                //     {
+                //         "name": "scalesetsnatpool.3",
+                //         "properties": {
+                //             "frontendIPConfiguration": {
+                //                 "id": "[parameters('loadBalancers_scalesetslb_id_3')]"
+                //             },
+                //             "frontendPort": 50003,
+                //             "backendPort": 3389,
+                //             "protocol": "Tcp"
+                //         }
+                //     }
+                // ],
                 "outboundNatRules": [],
                 "inboundNatPools": [
                     {
