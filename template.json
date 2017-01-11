@@ -1,0 +1,365 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachineScaleSets_scalesetsample_adminPassword": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "virtualMachineScaleSets_scalesetsample_name": {
+            "defaultValue": "scalesetsample",
+            "type": "String"
+        },
+        "loadBalancers_scalesetslb_name": {
+            "defaultValue": "scalesetslb",
+            "type": "String"
+        },
+        "publicIPAddresses_ip01_name": {
+            "defaultValue": "ip01",
+            "type": "String"
+        },
+        "virtualNetworks_scalesetsvnet_name": {
+            "defaultValue": "scalesetsvnet",
+            "type": "String"
+        },
+        "storageAccounts_bwr2frek7zpjescalesetssa_name": {
+            "defaultValue": "bwr2frek7zpjescalesetssa",
+            "type": "String"
+        },
+        "storageAccounts_h3tace74cksxgscalesetssa_name": {
+            "defaultValue": "h3tace74cksxgscalesetssa",
+            "type": "String"
+        },
+        "storageAccounts_xvuega6kpqlrwscalesetssa_name": {
+            "defaultValue": "xvuega6kpqlrwscalesetssa",
+            "type": "String"
+        },
+        "storageAccounts_yvjfxzsx7ciwcscalesetssa_name": {
+            "defaultValue": "yvjfxzsx7ciwcscalesetssa",
+            "type": "String"
+        },
+        "storageAccounts_yyiy5locsf4fkscalesetssa_name": {
+            "defaultValue": "yyiy5locsf4fkscalesetssa",
+            "type": "String"
+        },
+        "loadBalancers_scalesetslb_id": {
+            "defaultValue": "/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/ScaleSetRepro/providers/Microsoft.Network/loadBalancers/scalesetslb/frontendIPConfigurations/LoadBalancerFrontEnd",
+            "type": "String"
+        },
+        "loadBalancers_scalesetslb_id_1": {
+            "defaultValue": "/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/ScaleSetRepro/providers/Microsoft.Network/loadBalancers/scalesetslb/frontendIPConfigurations/LoadBalancerFrontEnd",
+            "type": "String"
+        },
+        "loadBalancers_scalesetslb_id_2": {
+            "defaultValue": "/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/ScaleSetRepro/providers/Microsoft.Network/loadBalancers/scalesetslb/frontendIPConfigurations/LoadBalancerFrontEnd",
+            "type": "String"
+        },
+        "loadBalancers_scalesetslb_id_3": {
+            "defaultValue": "/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/ScaleSetRepro/providers/Microsoft.Network/loadBalancers/scalesetslb/frontendIPConfigurations/LoadBalancerFrontEnd",
+            "type": "String"
+        },
+        "loadBalancers_scalesetslb_id_4": {
+            "defaultValue": "/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/ScaleSetRepro/providers/Microsoft.Network/loadBalancers/scalesetslb/frontendIPConfigurations/LoadBalancerFrontEnd",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/ScaleSetRepro/providers/Microsoft.Compute/virtualMachineScaleSets/scalesetsample'.",
+            "type": "Microsoft.Compute/virtualMachineScaleSets",
+            "sku": {
+                "name": "Standard_D1_v2",
+                "tier": "Standard",
+                "capacity": 2
+            },
+            "name": "[parameters('virtualMachineScaleSets_scalesetsample_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "properties": {
+                "upgradePolicy": {
+                    "mode": "Manual"
+                },
+                "virtualMachineProfile": {
+                    "osProfile": {
+                        "computerNamePrefix": "scalesets",
+                        "adminUsername": "ScaleSetUser",
+                        "windowsConfiguration": {
+                            "provisionVMAgent": true,
+                            "enableAutomaticUpdates": true
+                        },
+                        "secrets": [],
+                        "adminPassword": "[parameters('virtualMachineScaleSets_scalesetsample_adminPassword')]"
+                    },
+                    "storageProfile": {
+                        "osDisk": {
+                            "vhdContainers": [
+                                "https://yyiy5locsf4fkscalesetssa.blob.core.windows.net/scalesetsvhd",
+                                "https://yvjfxzsx7ciwcscalesetssa.blob.core.windows.net/scalesetsvhd",
+                                "https://xvuega6kpqlrwscalesetssa.blob.core.windows.net/scalesetsvhd",
+                                "https://bwr2frek7zpjescalesetssa.blob.core.windows.net/scalesetsvhd",
+                                "https://h3tace74cksxgscalesetssa.blob.core.windows.net/scalesetsvhd"
+                            ],
+                            "name": "scalesetsosdisk",
+                            "createOption": "FromImage",
+                            "caching": "ReadOnly"
+                        },
+                        "imageReference": {
+                            "publisher": "MicrosoftWindowsServer",
+                            "offer": "WindowsServer",
+                            "sku": "2016-Datacenter",
+                            "version": "latest"
+                        }
+                    },
+                    "networkProfile": {
+                        "networkInterfaceConfigurations": [
+                            {
+                                "name": "scalesetsnic",
+                                "properties": {
+                                    "primary": true,
+                                    "ipConfigurations": [
+                                        {
+                                            "name": "scalesetsipconfig",
+                                            "properties": {
+                                                "subnet": {
+                                                    "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_scalesetsvnet_name')), '/subnets/scalesetssubnet')]"
+                                                },
+                                                "loadBalancerBackendAddressPools": [
+                                                    {
+                                                        "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_scalesetslb_name')), '/backendAddressPools/scalesetsbepool')]"
+                                                    }
+                                                ],
+                                                "loadBalancerInboundNatPools": [
+                                                    {
+                                                        "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_scalesetslb_name')), '/inboundNatPools/scalesetsnatpool')]"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_scalesetsvnet_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_scalesetslb_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/ScaleSetRepro/providers/Microsoft.Network/loadBalancers/scalesetslb'.",
+            "type": "Microsoft.Network/loadBalancers",
+            "name": "[parameters('loadBalancers_scalesetslb_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "frontendIPConfigurations": [
+                    {
+                        "name": "LoadBalancerFrontEnd",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ip01_name'))]"
+                            }
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "scalesetsbepool"
+                    }
+                ],
+                "loadBalancingRules": [],
+                "probes": [],
+                "inboundNatRules": [
+                    {
+                        "name": "scalesetsnatpool.0",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_scalesetslb_id')]"
+                            },
+                            "frontendPort": 50000,
+                            "backendPort": 3389,
+                            "protocol": "Tcp"
+                        }
+                    },
+                    {
+                        "name": "scalesetsnatpool.1",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_scalesetslb_id_1')]"
+                            },
+                            "frontendPort": 50001,
+                            "backendPort": 3389,
+                            "protocol": "Tcp"
+                        }
+                    },
+                    {
+                        "name": "scalesetsnatpool.2",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_scalesetslb_id_2')]"
+                            },
+                            "frontendPort": 50002,
+                            "backendPort": 3389,
+                            "protocol": "Tcp"
+                        }
+                    },
+                    {
+                        "name": "scalesetsnatpool.3",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_scalesetslb_id_3')]"
+                            },
+                            "frontendPort": 50003,
+                            "backendPort": 3389,
+                            "protocol": "Tcp"
+                        }
+                    }
+                ],
+                "outboundNatRules": [],
+                "inboundNatPools": [
+                    {
+                        "name": "scalesetsnatpool",
+                        "properties": {
+                            "frontendPortRangeStart": 50000,
+                            "frontendPortRangeEnd": 50119,
+                            "backendPort": 3389,
+                            "protocol": "Tcp",
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_scalesetslb_id_4')]"
+                            }
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ip01_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/ScaleSetRepro/providers/Microsoft.Network/publicIPAddresses/ip01'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_ip01_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "scalesetsample"
+                }
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/ScaleSetRepro/providers/Microsoft.Network/virtualNetworks/scalesetsvnet'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_scalesetsvnet_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "scalesetssubnet",
+                        "properties": {
+                            "addressPrefix": "10.0.0.0/24"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/scalesetrepro/providers/Microsoft.Storage/storageAccounts/bwr2frek7zpjescalesetssa'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_bwr2frek7zpjescalesetssa_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/scalesetrepro/providers/Microsoft.Storage/storageAccounts/h3tace74cksxgscalesetssa'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_h3tace74cksxgscalesetssa_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/scalesetrepro/providers/Microsoft.Storage/storageAccounts/xvuega6kpqlrwscalesetssa'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_xvuega6kpqlrwscalesetssa_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/scalesetrepro/providers/Microsoft.Storage/storageAccounts/yvjfxzsx7ciwcscalesetssa'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_yvjfxzsx7ciwcscalesetssa_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2fb49205-8fe7-4b11-8962-95651b4de810/resourceGroups/scalesetrepro/providers/Microsoft.Storage/storageAccounts/yyiy5locsf4fkscalesetssa'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_yyiy5locsf4fkscalesetssa_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        }
+    ]
+}
