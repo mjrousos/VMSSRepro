@@ -1,0 +1,1 @@
+"Hello world, from a custom script!" > C:\TestFile.txt
